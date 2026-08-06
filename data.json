@@ -1,0 +1,16 @@
+[
+  { "date": "2024-01", "gdp": 100.0, "ipcInflation": 20.6, "fxOfficial": 820.0 },
+  { "date": "2024-02", "gdp": 99.5, "ipcInflation": 13.2, "fxOfficial": 850.0 },
+  { "date": "2024-03", "gdp": 98.2, "ipcInflation": 11.0, "fxOfficial": 875.0 },
+  { "date": "2024-04", "gdp": 97.8, "ipcInflation": 8.8, "fxOfficial": 890.0 },
+  { "date": "2024-05", "gdp": 98.0, "ipcInflation": 4.2, "fxOfficial": 900.0 },
+  { "date": "2024-06", "gdp": 98.5, "ipcInflation": 4.6, "fxOfficial": 905.0 },
+  { "date": "2024-07", "gdp": 99.0, "ipcInflation": 4.0, "fxOfficial": 920.0 },
+  { "date": "2024-08", "gdp": 99.5, "ipcInflation": 4.2, "fxOfficial": 950.0 },
+  { "date": "2024-09", "gdp": 100.1, "ipcInflation": 3.5, "fxOfficial": 965.0 },
+  { "date": "2024-10", "gdp": 101.0, "ipcInflation": 2.7, "fxOfficial": 980.0 },
+  { "date": "2024-11", "gdp": 101.5, "ipcInflation": 2.4, "fxOfficial": 1000.0 },
+  { "date": "2024-12", "gdp": 102.0, "ipcInflation": 2.8, "fxOfficial": 1020.0 },
+  { "date": "2025-01", "gdp": 102.5, "ipcInflation": 2.2, "fxOfficial": 1040.0 },
+  { "date": "2025-02", "gdp": 103.0, "ipcInflation": 2.0, "fxOfficial": 1060.0 }
+]
