@@ -1,4 +1,4 @@
-**RiskControl Executive**
+RiskControl Executive
 
 I built RiskControl Executive to make it easier to keep track of economic indicators and work with the data behind them. It's a small Node.js and Express application where you can save records, look them up, and update information without creating duplicate entries for the same date.
 
