@@ -4,8 +4,8 @@ RiskControl Executive is a Node.js and Express project I built to work with econ
 
 Right now, the published version uses a local JSON file for storage. It has two endpoints:
 
-- `GET /api/indicators` returns the saved indicators.
-- `POST /api/indicators` adds an indicator or updates the record for an existing date.
+ `GET /api/indicators` returns the saved indicators.
+ `POST /api/indicators` adds an indicator or updates the record for an existing date.
 
 The API checks dates and numeric inputs before saving them. It also handles invalid requests and storage errors with appropriate HTTP responses. Writes use a temporary file before replacing the stored data to reduce the risk of leaving a partial file.
 
