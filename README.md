@@ -1,52 +1,48 @@
-# RiskControl-Executive12 horas. Un objetivo. Salir de mi zona de confort.
+# RiskControl Executive — Indicators API
 
-Hoy terminé mi primer proyecto Full Stack orientado a Business Intelligence.
+Node.js/Express API for recording macroeconomic indicators and supporting business intelligence and risk monitoring.
 
-Hasta hace muy poco mi entorno principal era Python. Hoy decidí dar un paso más y construir una aplicación completa integrando tecnologías que nunca había utilizado juntas en un proyecto real.
+## Implemented in this repository
 
-No fue un camino lineal.
+- `GET /api/indicators`: returns JSON records from `data.json` (or an empty list when no file exists).
+- `POST /api/indicators`: creates or replaces an indicator for a valid calendar date (`YYYY-MM-DD`).
+- Requires numeric `inflacion`, `pbi`, and positive `tipoCambioOficial` fields; invalid input returns HTTP 400.
+- Data is written to a temporary file and renamed to reduce incomplete writes in a local single-process use case.
+- Storage failures return controlled HTTP 500 responses.
+- Optional static assets in `public/` are served if present; **no frontend source is currently committed**.
 
-Hubo horas resolviendo conflictos entre Prisma, npm, módulos, dependencias y configuraciones. En más de una oportunidad corregía un problema y aparecía otro distinto. En lugar de abandonar el proyecto, simplifiqué donde era necesario, reorganicé la arquitectura y seguí avanzando.
+Earlier development notes referred to React, Prisma, PostgreSQL and Python, but those components are **not included as executable source in this repository**. Their absence does not establish what other project copies may contain.
 
-El resultado fue una plataforma funcional que integra una arquitectura Full Stack moderna con foco en el análisis de información y la toma de decisiones.
+## Run
 
-🔹 Frontend desarrollado con React, JavaScript, HTML y CSS.
+Requires Node.js 22 or later.
 
-🔹 Backend construido con Node.js y Express, exponiendo una API para comunicar toda la aplicación.
+```bash
+npm ci
+npm start
+```
 
-🔹 Persistencia de datos mediante PostgreSQL, utilizando Prisma ORM para administrar el acceso a la base de datos.
+The API listens on port 4000 by default (configurable with `PORT`). Current storage is JSON, not a deployed SQL database.
 
-🔹 Integración de un motor de análisis desarrollado en Python para incorporar capacidades de Inteligencia Artificial.
+Example with synthetic values:
 
-🔹 Comunicación entre capas utilizando JSON como formato de intercambio de información.
+```bash
+curl -X POST http://localhost:4000/api/indicators -H 'Content-Type: application/json' -d '{"date":"2026-10-30","inflacion":2.5,"pbi":1000,"tipoCambioOficial":1200}'
+```
 
-La plataforma ya incorpora:
+## Quality checks
 
-✅ CRUD completo.
+```bash
+npm run lint
+npm test
+```
 
-✅ Gestión manual de indicadores.
+Tests check GET/POST, data persistence, updates by date, invalid dates and financial fields, malformed JSON and corrupted storage. A GitHub Actions workflow runs checks on push and pull requests.
 
-✅ Dashboard ejecutivo.
+## Data and security
 
-✅ KPIs.
+The `data.json` file contains example/historical data; source provenance should be validated before reuse. Local `.env` and database artifacts are removed from the current development branch and excluded for future changes via `.gitignore`. Prior commits remain in Git history; rotate any actual exposed credentials. The code uses file persistence and has **no authentication**, so it is not intended to be exposed directly to the public internet without additional hardening.
 
-✅ KRIs.
+## Authorship and license
 
-✅ Gráficos dinámicos.
-
-✅ Persistencia de datos.
-
-✅ Motor de análisis con IA.
-
-Más allá del resultado técnico, este proyecto me dejó una enseñanza muy clara.
-
-Business Intelligence no consiste únicamente en construir gráficos. Consiste en diseñar una arquitectura capaz de capturar datos, almacenarlos, analizarlos y convertirlos en información útil para apoyar la toma de decisiones.
-
-Este proyecto representa mi primer paso dentro del desarrollo Full Stack, combinando desarrollo web, bases de datos, Business Intelligence e Inteligencia Artificial en una misma solución.
-
-Ahora comienza la siguiente etapa: seguir iterando, mejorar la arquitectura, incorporar nuevas funcionalidades y continuar aprendiendo.
-
-Porque la mejor forma de aprender una tecnología no fue leer sobre ella.
-
-Fue construir con ella.
-
+Repository maintained under `eldavi22` by David Giacone. Git history retains original commit attribution. Licensed under MIT; see `LICENSE`.

@@ -1,14 +1,16 @@
 {
   "name": "argentia-economic-intelligence-platform",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "JSON-backed indicators API for business intelligence and risk monitoring",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "lint": "node --check server.js && node --check tests/api.test.js",
+    "test": "node --test tests/*.test.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "David Giacone",
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
     "dotenv": "^17.4.2",
