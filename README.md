@@ -1,48 +1,48 @@
-# RiskControl Executive — Indicators API
+# RiskControl Executive
 
-Node.js/Express API for recording macroeconomic indicators and supporting business intelligence and risk monitoring.
+RiskControl Executive is a Node.js and Express project I built to work with economic indicators and make them easier to track. The API lets you retrieve records, add new ones, and update existing entries without creating duplicates for the same date. It's a practical foundation for exploring business intelligence and risk monitoring.
 
-## Implemented in this repository
+Right now, the published version uses a local JSON file for storage. It has two endpoints:
 
-- `GET /api/indicators`: returns JSON records from `data.json` (or an empty list when no file exists).
-- `POST /api/indicators`: creates or replaces an indicator for a valid calendar date (`YYYY-MM-DD`).
-- Requires numeric `inflacion`, `pbi`, and positive `tipoCambioOficial` fields; invalid input returns HTTP 400.
-- Data is written to a temporary file and renamed to reduce incomplete writes in a local single-process use case.
-- Storage failures return controlled HTTP 500 responses.
-- Optional static assets in `public/` are served if present; **no frontend source is currently committed**.
+- `GET /api/indicators` returns the saved indicators.
+- `POST /api/indicators` adds an indicator or updates the record for an existing date.
 
-Earlier development notes referred to React, Prisma, PostgreSQL and Python, but those components are **not included as executable source in this repository**. Their absence does not establish what other project copies may contain.
+The API checks dates and numeric inputs before saving them. It also handles invalid requests and storage errors with appropriate HTTP responses. Writes use a temporary file before replacing the stored data to reduce the risk of leaving a partial file.
 
-## Run
+## Getting started
 
-Requires Node.js 22 or later.
+You'll need Node.js 22 or newer. Clone the repository and run:
 
 ```bash
 npm ci
 npm start
 ```
 
-The API listens on port 4000 by default (configurable with `PORT`). Current storage is JSON, not a deployed SQL database.
+The server starts on port 4000 unless you set a different `PORT`.
 
-Example with synthetic values:
+Here's an example request using sample values:
 
 ```bash
-curl -X POST http://localhost:4000/api/indicators -H 'Content-Type: application/json' -d '{"date":"2026-10-30","inflacion":2.5,"pbi":1000,"tipoCambioOficial":1200}'
+curl -X POST http://localhost:4000/api/indicators \
+  -H "Content-Type: application/json" \
+  -d '{"date":"2026-10-30","inflacion":2.5,"pbi":1000,"tipoCambioOficial":1200}'
 ```
 
-## Quality checks
+The field names follow the original indicator data: inflation (`inflacion`), GDP (`pbi`), and the official exchange rate (`tipoCambioOficial`).
+
+## Testing
+
+I added automated tests for the API, including successful reads and writes, updates by date, invalid inputs, malformed JSON, and corrupted data files.
 
 ```bash
 npm run lint
 npm test
 ```
 
-Tests check GET/POST, data persistence, updates by date, invalid dates and financial fields, malformed JSON and corrupted storage. A GitHub Actions workflow runs checks on push and pull requests.
+GitHub Actions runs the same checks whenever changes are pushed or a pull request is opened.
 
-## Data and security
+## About the project
 
-The `data.json` file contains example/historical data; source provenance should be validated before reuse. Local `.env` and database artifacts are removed from the current development branch and excluded for future changes via `.gitignore`. Prior commits remain in Git history; rotate any actual exposed credentials. The code uses file persistence and has **no authentication**, so it is not intended to be exposed directly to the public internet without additional hardening.
+This repository contains the Express API and example data. Some of my earlier development notes discuss a broader dashboard and other technologies, but that additional source code isn't included here. The current API doesn't have authentication or multi-process write coordination, so it should be treated as a development project rather than a service ready to expose directly to the internet.
 
-## Authorship and license
-
-Repository maintained under `eldavi22` by David Giacone. Git history retains original commit attribution. Licensed under MIT; see `LICENSE`.
+I maintain this repository under [eldavi22](https://github.com/eldavi22). The code is available under the MIT license; see [LICENSE](LICENSE).
